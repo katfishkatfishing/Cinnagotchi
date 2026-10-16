@@ -63,3 +63,25 @@ void ButtonDriver::debounceTask(void* arg) {
         }
     }
 }
+
+
+bool ButtonDriver::init(QueueHandle_t outEventQueue) {
+    app_event_queue_ = outEventQueue;
+    raw_gpio_queue_ = xQueueCreate(10, sizeof(RawEdgeEventt));
+
+    gpio_confg_t io_conf = {
+        .intr_type = GPIO_INTR_ANYEDGE,
+        .pin_bit_mask = (1ULL << PIN_SCROLL) | (1ULL << PIN_SELECT) | (1ULL << PIN_BACK),
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE
+    };
+    gpio_config(&io_conf);
+
+    gpio_install_isr_service(0);
+    gpio_isr_handler_add(PIN_SCROLL, isrHandler, reinterpret_cast<void*>(ButtonId::BTN_SCROLL));
+    gpio_isr_handler_add(PIN_SELECT, isrHandler, reinterpret_cast<void*>(ButtonId::BTN_SELECT));
+    gpio_isr_handler_add(PIN_BACK, isrHandler, reinterpret_cast<void*>(ButtonId::BTN_BACK));
+
+    PinnedToCore(debounceTask, "ButtonDebounce", 2048, nullptr, 10, nullptr, 0);
+}
