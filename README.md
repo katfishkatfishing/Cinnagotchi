@@ -13,6 +13,7 @@ The ONLY Cinnamon you will ever need that during Autumn that loves cinnamon roll
 - 2-inch lcd screen
 - Temperature and humidity sensor
 - Ambient light sensor
+- Inertial measurement sensor
 - Powered by ESP-32 S3 WROOM-1
 
 
