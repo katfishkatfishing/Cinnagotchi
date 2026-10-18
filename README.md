@@ -15,6 +15,7 @@ P.S : What's better than just cinnamon roll? Cinnamon eating cinnamon roll!
 - Has ambient light sensor, temperature sensor that affects the pet.
 - Cinnamon with animations.
 - 3 button controls
+- A cool minigame!
 
 ## Hardware
 - 3 tactile button controls
