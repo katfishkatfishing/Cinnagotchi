@@ -7,10 +7,11 @@ The ONLY Cinnamon you will ever need that during Autumn that loves cinnamon roll
 
 - IDK what;s on the desktop feature for now
 - Cinnamon with animations
-> Tamagotchi
-> 3 button controls
-> 2-inch lcd screen
-> Powered by esp-32 S3 WROOM-1
+
+## Hardware
+ 3 tactile button controls
+ 2-inch lcd screen
+ Powered by ESP-32 S3 WROOM-1
 
 
 
