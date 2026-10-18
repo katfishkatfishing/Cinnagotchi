@@ -28,6 +28,6 @@ The ONLY Cinnamon you will ever need that during Autumn that loves cinnamon roll
   </tr>
   <tr>
     <td> <img width="972" height="947" alt="image" src="https://github.com/user-attachments/assets/dfbffc66-1d8d-4c97-a6b4-c08272199ebc" /> </td>
-    <tr> <img width="966" height="945" alt="image" src="https://github.com/user-attachments/assets/5df420cc-dfc3-46c0-95c7-e868a234e83e" /> </tr>
+    <td> <img width="966" height="945" alt="image" src="https://github.com/user-attachments/assets/5df420cc-dfc3-46c0-95c7-e868a234e83e" /> </td>
   </tr>
 </table>
