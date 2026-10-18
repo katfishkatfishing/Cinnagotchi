@@ -5,14 +5,15 @@ The ONLY Cinnamon you will ever need that during Autumn that loves cinnamon roll
 
 ## Features
 
-- IDK what;s on the desktop feature for now
+- Has ambient light sensor, temperature sensor that affects the pet.
 - Cinnamon with animations
 
 ## Hardware
 - 3 tactile button controls
 - 2-inch lcd screen
+- Temperature and humidity sensor
+- Ambient light sensor
 - Powered by ESP-32 S3 WROOM-1
-
 
 
 ## Cinnagotchi Schematic
