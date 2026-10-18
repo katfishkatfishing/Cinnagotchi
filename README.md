@@ -1,5 +1,8 @@
 # Cinnagotchi
+> Third-space Hack club Week 5!
 
+
+## 💠 Project Overview 💠
 A desktop and tamagotchi companion with Cinnamon from Sanrio!
 The ONLY Cinnamon you will ever need that during Autumn that loves cinnamon rolls too.
 
@@ -27,7 +30,7 @@ The ONLY Cinnamon you will ever need that during Autumn that loves cinnamon roll
 <table>
   <tr>
     <td> <img width="707" height="846" alt="image" src="https://github.com/user-attachments/assets/aefb3e09-0b95-4b27-b871-0250354c14bc" /> </td>
-    <td>   </td>
+    <td> <img width="652" height="786" alt="image" src="https://github.com/user-attachments/assets/c908d00f-3fde-46d0-bf19-29fab8a9ad1f" /> </td>
   </tr>
   <tr>
     <td> <img width="972" height="947" alt="image" src="https://github.com/user-attachments/assets/dfbffc66-1d8d-4c97-a6b4-c08272199ebc" /> </td>
