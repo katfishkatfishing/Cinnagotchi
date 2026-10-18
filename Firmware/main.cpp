@@ -44,93 +44,110 @@ static void blitSprite(uint16_t* destTile, int tileY, int sprX, int sprY, int sp
     }
 }
 
-void renderTask(void* pvParameters) {
-    static constexpr uint16_t COLOR_WHITE = 0xFFFF;
-    static constexpr uint16_t COLOR_AMBER = (0xFBE0 << 8) | (0xFBE0 >> 8);
-    static constexpr uint16_t COLOR_BAR_BG = (0x4208 << 8) | (0x4208 >> 8);
-    static constexpr uint16_t COLOR_BAR_FILL = (0x2DE0 << 8) | (0x2DE0 >> 8);
+static constexpr uint16_t COLOR_WHITE = 0xFFFF;
+static constexpr uint16_t COLOR_AMBER = (0xFBE0 << 8) | (0xFBE0 >> 8);
+static constexpr uint16_t COLOR_BAR_BG = (0x4208 << 8) | (0x4208 >> 8);
+static constexpr uint16_t COLOR_BAR_FILL = (0x2DE0 << 8) | (0x2DE0 >> 8);
+static constexpr uint16_t* BG_CREAM = (0xF75B << 8) | (0xF75B >> 8);
+static constexpr uint16_t* BG_GAME = (0xEED0 << 8) | (0xEED0 >> 8);
+static constexpr uint16_t* BG_WHITE = 0xFFFF;
 
-    void drawUIOverly(uint16_t* buffer, int tileY, const UINavigator& nav, const Vitals& vitals) {
-        ViewState view = nav.getCurrentView();
+extern ST7789DMA display;
+extern Vitals vitals;
+extern PetFSM petFsm;
+extern UINavigator navigator;
+extern CinnamonRollGame cinnamonRollGame;
+extern const STT7789DMA::Pins LCD_PINS;
 
-        if (view == ViewState::VIEW_MAIN_MENU) {
-            constexpr int BAR_Y = 10;
-            constexpr int ICON_SIZE = 24;
-            constexpr int SPACING = 55;
 
-            for (int i = 0; i < UINavigator::MENU_ITEMS_COUNT; ++1) {
-                int iconX = 20 + i * SPACING;
-                uint16_t frameColor = (i == nav.getMenuCursor()) ? COLOR_AMBER : COLOR_WHITE;
+void drawUIOverly(uint16_t* buffer, int tileY, const UINavigator& nav, const Vitals& vitals) {
+    ViewState view = nav.getCurrentView();
 
-                for (int y = 0; y < ICON_SIZE; ++y) {
-                    int globalY = BAR_Y + y;
+    if (view == ViewState::VIEW_MAIN_MENU) {
+        constexpr int BAR_Y = 10;
+        constexpr int ICON_SIZE = 24;
+        constexpr int SPACING = 55;
 
-                    if (globalY >= tileY && globalY < tileY + ST7789DMA::TILE_HEIGHT) {
-                        int localY = globalY - tileY;
-                        tileBuffer[localY * ST7789DMA::SCREEN_WIDTH + iconX] = frameColor;
-                        tileBuffer[localY * ST7789DMA::SCREEN_WIDTH + iconX + ICON_SIZE - 1] = frameColor;
+        for (int i = 0; i < UINavigator::MENU_ITEMS_COUNT; ++1) {
+            int iconX = 20 + i * SPACING;
+            uint16_t frameColor = (i == nav.getMenuCursor()) ? COLOR_AMBER : COLOR_WHITE;
 
-                        if (y == 0 || y == ICON_SIZE - 1) {
-                            for (int x = 0; x < ICON_SIZE; ++x) {
-                                tileBuffer[localY * ST7789DMA::SCREEN_WIDTH + iconX + x] = framColor;
-                            }
-                        }    
-                    }
-                }
-            }
-        }
-    
+            for (int y = 0; y < ICON_SIZE; ++y) {
+                int globalY = BAR_Y + y;
 
-        if (view == ViewState::VIEW_STATS_CARD) {
-            constexpr int BAR_START_Y = 60;
-            constexpr int BAR_HEIGHT = 12;
-            constexpr int BAR_MMAX_WIDTH = 160;
-            constexpr int BAR_x = 40;
+                if (globalY >= tileY && globalY < tileY + ST7789DMA::TILE_HEIGHT) {
+                    int localY = globalY - tileY;
+                    tileBuffer[localY * ST7789DMA::SCREEN_WIDTH + iconX] = frameColor;
+                    tileBuffer[localY * ST7789DMA::SCREEN_WIDTH + iconX + ICON_SIZE - 1] = frameColor;
 
-            uint8_t stats[3] = {vitals.hunger, vitals.happiness, vitals.energy};
-
-            for (int s = 0; s < 3; ++s) {
-                int baseY = BAR_START_Y + s * (BAR_HEIGHT + 10);
-                int fillWidth = (stats[s] * BAR_MAX_WIDTH) / 100;
-
-                for (int y = 0; y < BAR_HEIGHT; ++y) {
-                    int globalY = baseY + y;
-                    if (globalY >= tileY && globalY < tileY + ST7789DMA::TILE_HEIGHT) {
-                        int localY = globalY - tileY;
-
-                        for (int x = 0; x < BAR_MAX_WIDTH; ++x) {
-                            uint16_t color = (x < fillWidth) ? COLOR_BAR_FILL : COLOR_BAR_BG;
-                            tileBuffer[localY * ST7789DMA::SCREEN_WIDTH + BAR_X + x] = color;
+                    if (y == 0 || y == ICON_SIZE - 1) {
+                        for (int x = 0; x < ICON_SIZE; ++x) {
+                            tileBuffer[localY * ST7789DMA::SCREEN_WIDTH + iconX + x] = framColor;
                         }
-                    }
+                    }    
                 }
             }
         }
     }
 
+
+    if (view == ViewState::VIEW_STATS_CARD) {
+        constexpr int BAR_START_Y = 60;
+        constexpr int BAR_HEIGHT = 12;
+        constexpr int BAR_MMAX_WIDTH = 160;
+        constexpr int BAR_x = 40;
+
+        uint8_t stats[3] = {vitals.hunger, vitals.happiness, vitals.energy};
+
+        for (int s = 0; s < 3; ++s) {
+            int baseY = BAR_START_Y + s * (BAR_HEIGHT + 10);
+            int fillWidth = (stats[s] * BAR_MAX_WIDTH) / 100;
+
+            for (int y = 0; y < BAR_HEIGHT; ++y) {
+                int globalY = baseY + y;
+                if (globalY >= tileY && globalY < tileY + ST7789DMA::TILE_HEIGHT) {
+                    int localY = globalY - tileY;
+
+                    for (int x = 0; x < BAR_MAX_WIDTH; ++x) {
+                        uint16_t color = (x < fillWidth) ? COLOR_BAR_FILL : COLOR_BAR_BG;
+                        tileBuffer[localY * ST7789DMA::SCREEN_WIDTH + BAR_X + x] = color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void renderTask(void* pvParameters) {
     display.init(LCD_PINS);
     uint16_t* bufferA = display.getBufferA();
     uint16_t* bufferB = display.getBufferB();
 
-    const uint16_t* BG_COLOR = (0xF75B << 8) | (0xF75B >> 8); // Example background color
-
     int animationFrame = 0;
 
+    constexpr int NUM_TILES = ST7789DMA::SCREEN_HEIGHT / ST7789DMA::TILE_HEIGHT;
+    constexpr int PIXELS_PER_TILE = ST7789DMA::SCREEN_WIDTH * ST7789DMA::TILE_HEIGHT;
+
     while (true) {
+        ViewState currentView = navigator.getCurrentView();
+        uint16_t bgColor = (currentView == ViewState::VIEW_HOME) ? BG_GAME : BG_CREAM;
+
         display.setAddressWindow(0, 0, ST7789DMA::SCREEN_WIDTH - 1, ST7789DMA::TILE_HEIGHT - 1);
 
-        for (int tile = 0; tile < (ST7789DMA::SCREEN_WIDTH - 1, ST7789DMA::TILE_HEIGHT - 1); ++tile) {
+        for (int tile = 0; tile < NUM_TILES; ++tile) {
             int tileY = tile * ST7789DMA::TILE_HEIGHT;
 
-            for (int i = 0; i < ST7789DMA::SCREEN_WIDTH * ST7789DMA::TILE_HEIGHT; ++i) {
-                bufferB[i] = BG_COLOR;
+            for (int i = 0; i < PIXELS_PER_TILE; ++i) {
+                shadowBuffer[i] = bgColor;
             }
 
-            int bounceY = (petFsm.getState() == PetState::happy) ? ((animationFrame % 20 < 10)? -4 : 0) : 0;
+            if (currentView == ViewState::VIEW_MINIGAME) {
+                cinnamonRollGame.render(shadowBuffer, tileY, ST7789DMA::TILE_HEIGHT);
+            } else {
+                static const uint16_t BODY_WHITE = (0xFFFF << 8) | (0xFFF >> 8);
+                int bounceY = (petFsm.getState() == PetState::happy) ? ((animationFrame % 20 < 10)? -4 : 0) : 0;
 
-            static const uint16_t BODY_WHITE = (0xFFFF << 8) | (0xFFF >> 8);
-            
-            for (int y = 0; y <40; ++y) {
+                for (int y = 0; y <40; ++y) {
                 int globalY = 100 + bounceY + y;
                 if (globalY >= tileY && globalY < tileY + ST7789DMA::TILE_HEIGHT) {
                     int localY = globalY - tileY;
@@ -140,6 +157,8 @@ void renderTask(void* pvParameters) {
                 }
             }
 
+            drawUIOverlay(bufferB, tileY, navigator, vitals);
+            }
             if (tile > 0) {
                 display.waitTransferComplete();
             }
@@ -166,7 +185,7 @@ void gameTask(void* pvParameters) {
         }
 
         // Check ambient light levels
-        float lux = SnesorHub::readAmbientLux();
+        float lux = SensorHub::readAmbientLux();
         if (lux >= 0.0f && lux < 5.0f && navigator.getCurrentView() == ViewState::VIEW_HOME) {
             petFsm.forceState(PetState::sleeping);
         }
