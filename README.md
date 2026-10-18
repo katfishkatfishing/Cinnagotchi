@@ -4,6 +4,8 @@ Cinnagotchi, a cinnamon from Sanrio inspired tamagotchi and desktop pet, the env
 
 ## 💠 Project Overview 💠
 This week's theme is cinnamon, and so we initially thought of making smtg related to the food but someone mentioned about the cartoon character cinnamon instead. After some discussion, we decided on making a tamagotchi and desktop pet. Ofc it can't just be any tamagotchi, it had to be more complicated and so we decided to stuff whatever sensor we could think of at that time.
+
+
 P.S : What's better than just cinnamon roll? Cinnamon eating cinnamon roll!
 <img width="32" alt="image" src="https://github.com/user-attachments/assets/f2445b33-8526-4466-9043-5e24fa1d558d" />
 
