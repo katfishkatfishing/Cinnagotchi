@@ -9,9 +9,9 @@ The ONLY Cinnamon you will ever need that during Autumn that loves cinnamon roll
 - Cinnamon with animations
 
 ## Hardware
- 3 tactile button controls
- 2-inch lcd screen
- Powered by ESP-32 S3 WROOM-1
+- 3 tactile button controls
+- 2-inch lcd screen
+- Powered by ESP-32 S3 WROOM-1
 
 
 
