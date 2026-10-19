@@ -57,7 +57,7 @@ P.S : What's better than just cinnamon roll? Cinnamon eating cinnamon roll!
 | <img width="409" height="324" alt="image" src="https://github.com/user-attachments/assets/1fc86be6-a6ea-4054-97dc-aa3a657e775d" /> | <img width="449" height="333" alt="image" src="https://github.com/user-attachments/assets/8d9d001f-20cc-4ff3-9ace-5de520da1405" /> |
 
 - 3 tactile button in the middle
-- USBC port at the side
+- USB-C port at the side
 
 ## BOM
 
