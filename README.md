@@ -17,6 +17,7 @@ P.S : What's better than just cinnamon roll? Cinnamon eating cinnamon roll!
 - Cinnamon with animations.
 - 3 button controls
 - A cool minigame!
+- Stare at cinnamon all day!
 
 ## Hardware
 - 3 tactile button controls
@@ -44,6 +45,9 @@ P.S : What's better than just cinnamon roll? Cinnamon eating cinnamon roll!
     <td> <img width="966" height="945" alt="image" src="https://github.com/user-attachments/assets/5df420cc-dfc3-46c0-95c7-e868a234e83e" /> </td>
   </tr>
 </table>
+
+🔴Red = 1st layer
+🔵Blue = 4th layer
 
 ## Case
 
