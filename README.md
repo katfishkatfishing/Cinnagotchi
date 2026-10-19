@@ -1,5 +1,6 @@
 # Cinnagotchi
 > Third-space Hack club Week 5!
+
 Cinnagotchi, a cinnamon from Sanrio inspired tamagotchi and desktop pet, the environment eg. light intensity, temperature, humidity and inertial orientation would have an affect cinnamon.
 
 ## 💠 Project Overview 💠
